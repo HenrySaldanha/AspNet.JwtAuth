@@ -22,20 +22,21 @@ public class TokenService : ITokenService
     {
         Log.Information($"Generating Token for user {user.Name}");
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_options.Secret);
-        var tokenDescriptor = new SecurityTokenDescriptor
+        var jwtTokenHandler = new JwtSecurityTokenHandler();
+        var secret = Encoding.ASCII.GetBytes(_options.Secret);
+        var credentials = new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256Signature);
+        var descriptor = new SecurityTokenDescriptor
         {
-            Expires = DateTime.UtcNow.AddMinutes(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+            Expires = DateTime.UtcNow.AddMinutes(15),
+            SigningCredentials = credentials,
             Subject = new ClaimsIdentity(new[]
             {
-                    new Claim(ClaimTypes.Name, user.Name),
-                    new Claim(ClaimTypes.Role, user.Role.ToString())
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             })
         };
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        var token = jwtTokenHandler.CreateToken(descriptor);
+        return jwtTokenHandler.WriteToken(token);
     }
 }

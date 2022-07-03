@@ -24,7 +24,7 @@ public class Startup
         services.AddControllers()
             .AddNewtonsoftJson(config => { config.SerializerSettings.Converters.Add(new StringEnumConverter()); });
 
-        var key = Encoding.ASCII.GetBytes(Configuration.GetSection("TokenSecret")["Secret"]);
+        var secret = Encoding.ASCII.GetBytes(Configuration.GetSection("TokenSecret")["Secret"]);
         services.AddAuthentication(x =>
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -37,7 +37,7 @@ public class Startup
             x.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
+                IssuerSigningKey = new SymmetricSecurityKey(secret),
                 ValidateIssuer = false,
                 ValidateAudience = false
             };

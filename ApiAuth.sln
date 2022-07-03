@@ -11,11 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjection", "src\DependencyInjection\DependencyInjection.csproj", "{C12CD3FD-CFC9-4279-980A-3FADDCC5C991}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{A597197A-8BCE-4D06-B2AD-94EF18EF4114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{A597197A-8BCE-4D06-B2AD-94EF18EF4114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dependencies", "src\Dependencies\Dependencies.csproj", "{055111C5-9C08-4B15-B786-2CF124A6C766}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dependencies", "src\Dependencies\Dependencies.csproj", "{055111C5-9C08-4B15-B786-2CF124A6C766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Api\Api.csproj", "{054A5756-2602-4FEE-8979-868E880DB2B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj", "{054A5756-2602-4FEE-8979-868E880DB2B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{56F22C96-895D-42E5-8B29-4947CA89167E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,8 +3,8 @@
 namespace Application.IServices;
 public interface IUserService
 {
-    public User Get(string name, string password);
+    public Task<User> GetAsync(string name, string password);
     public IEnumerable<User> Get();
-    public User Create(User user);
-    public void Delete(Guid id);
+    public Task<User> CreateAsync(User user);
+    public Task DeleteAsync(Guid id);
 }

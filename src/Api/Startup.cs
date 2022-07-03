@@ -1,8 +1,10 @@
 ﻿using DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Converters;
+using Repository.Database;
 using System.Text;
 
 namespace Api;
@@ -17,6 +19,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddDbContext<UserContext>(option => option.UseInMemoryDatabase("UserDatabase"));
+
         services.AddControllers()
             .AddNewtonsoftJson(config => { config.SerializerSettings.Converters.Add(new StringEnumConverter()); });
 

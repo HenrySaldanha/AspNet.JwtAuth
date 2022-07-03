@@ -1,3 +1,5 @@
+using Repository.Database;
+using Repository.Seed;
 using Serilog;
 
 namespace Api;
@@ -8,7 +10,9 @@ public static class Program
         Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
         Log.Information("Starting Api");
 
-        CreateHostBuilder(args).Build().Run();
+        var host = CreateHostBuilder(args).Build();
+        host.SeedDatabase();
+        host.Run();
     }
 
     private static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -17,4 +21,12 @@ public static class Program
             {
                 webBuilder.UseStartup<Startup>();
             });
+
+    private static void SeedDatabase(this IHost host)
+    {
+        using var scope = host.Services.CreateScope();
+        var services = scope.ServiceProvider;
+        var userContext = services.GetRequiredService<UserContext>();
+        userContext.Seed();
+    }
 }

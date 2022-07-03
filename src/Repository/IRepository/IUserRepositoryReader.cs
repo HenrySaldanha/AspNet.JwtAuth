@@ -3,7 +3,7 @@
 namespace Repository.IRepository;
 public interface IUserRepositoryReader
 {
-    public User Get(string name, string password);
+    public Task<User> GetAsync(string name, string password);
     public IEnumerable<User> Get();
-    public User Get(Guid id);
+    public Task<User> GetAsync(Guid id);
 }

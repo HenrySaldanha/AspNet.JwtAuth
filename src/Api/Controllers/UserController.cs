@@ -26,14 +26,14 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(string), StatusCodes.Status201Created)]
-    public async Task<ActionResult> CreateUser([FromBody] CreateUserRequest request)
+    public async Task<ActionResult> CreateUserAsync([FromBody] CreateUserRequest request)
     {
-        var user = _userService.Create(request);
+        var user = await _userService.CreateAsync(request);
 
         if (user is null)
             return BadRequest("User already registered");
 
-        return Created(nameof(CreateUser),(UserResponse)user);
+        return Created(nameof(CreateUserAsync),(UserResponse)user);
     }
 
     [HttpGet]
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(List<UserResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> GetAllUsers()
+    public ActionResult GetAllUsers()
     {
         var users = _userService.Get();
 
@@ -56,9 +56,9 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> DeleteUser([FromQuery] Guid id)
+    public async Task<ActionResult> DeleteUserAsync([FromQuery] Guid id)
     {
-        _userService.Delete(id);
+        await _userService.DeleteAsync(id);
 
         return Ok();
     }

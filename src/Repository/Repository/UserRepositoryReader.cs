@@ -1,22 +1,30 @@
 ﻿using Domain.Entities;
-using Repository.Data;
+using Microsoft.EntityFrameworkCore;
+using Repository.Database;
 using Repository.IRepository;
 
 namespace Repository.Repository;
 public class UserRepositoryReader : IUserRepositoryReader
 {
-    public User Get(string name, string password)
+    private readonly UserContext _userContext;
+
+    public UserRepositoryReader(UserContext userContext)
     {
-        return UserData._users.FirstOrDefault(u => u.Password == password && u.Name == name);
+        _userContext = userContext;
+    }
+
+    public async Task<User> GetAsync(string name, string password)
+    {
+        return await _userContext.Users.FirstOrDefaultAsync(u => u.Password == password && u.Name == name);
     }
 
     public IEnumerable<User> Get()
     {
-        return UserData._users;
+        return _userContext.Users;
     }
 
-    public User Get(Guid id)
+    public async Task<User> GetAsync(Guid id)
     {
-        return UserData._users.FirstOrDefault(c=>c.Id == id);
+        return await _userContext.Users.FirstOrDefaultAsync(c => c.Id == id);
     }
 }

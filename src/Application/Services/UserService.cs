@@ -16,7 +16,7 @@ public class UserService : IUserService
         _userRepositoryWriter = userRepositoryWriter;
     }
 
-    public User Create(User user)
+    public async Task<User> CreateAsync(User user)
     {
         Log.Information($"Creating new user: {user.Name} {user.Role}");
         var users = _userRepositoryReader.Get();
@@ -28,21 +28,21 @@ public class UserService : IUserService
         }
 
         user.Id = Guid.NewGuid();
-        return _userRepositoryWriter.Create(user);
+        return await _userRepositoryWriter.CreateAsync(user);
     }
 
-    public void Delete(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
         Log.Information($"Deleting user: {id}");
-        var user = _userRepositoryReader.Get(id);
+        var user = await _userRepositoryReader.GetAsync(id);
         if(user != null)
-            _userRepositoryWriter.Delete(user);
+            await _userRepositoryWriter.DeleteAsync(user);
     }
 
-    public User Get(string name, string password)
+    public async Task<User> GetAsync(string name, string password)
     {
         Log.Information($"Searching for username and password: {name}");
-        return _userRepositoryReader.Get(name, password);
+        return await _userRepositoryReader.GetAsync(name, password);
     }
     
 

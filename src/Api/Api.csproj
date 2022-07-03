@@ -7,8 +7,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Application\Application.csproj" />
 		<ProjectReference Include="..\Dependencies\Dependencies.csproj" />
+		<ProjectReference Include="..\Application\Application.csproj" />
 		<ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
 	</ItemGroup>
 

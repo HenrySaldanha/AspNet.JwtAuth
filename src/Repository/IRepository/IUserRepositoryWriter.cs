@@ -3,6 +3,6 @@
 namespace Repository.IRepository;
 public interface IUserRepositoryWriter
 {
-    public User Create(User user);
-    public void Delete(User user);
+    public Task<User> CreateAsync(User user);
+    public Task DeleteAsync(User user);
 }

@@ -1,18 +1,28 @@
 ﻿using Domain.Entities;
-using Repository.Data;
+using Repository.Database;
 using Repository.IRepository;
 
 namespace Repository.Repository;
 public class UserRepositoryWriter : IUserRepositoryWriter
 {
-    public User Create(User user)
+    private readonly UserContext _userContext;
+
+    public UserRepositoryWriter(UserContext userContext)
     {
-        UserData._users.Add(user);
+        _userContext = userContext;
+    }
+
+    public async Task<User> CreateAsync(User user)
+    {
+        _userContext.Users.AddRange(user);
+        await _userContext.SaveChangesAsync();
+
         return user;
     }
 
-    public void Delete(User user)
+    public async Task DeleteAsync(User user)
     {
-        UserData._users.Remove(user);
+        _userContext.Users.Remove(user);
+        await _userContext.SaveChangesAsync();
     }
 }

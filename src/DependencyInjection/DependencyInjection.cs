@@ -11,14 +11,14 @@ public static class DependencyInjection
 {
     public static void RegisterServices(this IServiceCollection services)
     {
-        services.AddTransient<ITokenService, TokenService>();
-        services.AddTransient<IUserService, UserService>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserService, UserService>();
     }
 
     public static void RegisterRepositories(this IServiceCollection services)
     {
-        services.AddTransient<IUserRepositoryReader, UserRepositoryReader>();
-        services.AddTransient<IUserRepositoryWriter, UserRepositoryWriter>();
+        services.AddScoped<IUserRepositoryReader, UserRepositoryReader>();
+        services.AddScoped<IUserRepositoryWriter, UserRepositoryWriter>();
     }
 
     public static void RegisterOptions(this IServiceCollection services, IConfiguration configuration)

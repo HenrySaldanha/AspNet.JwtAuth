@@ -23,9 +23,9 @@ public class LoginController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<dynamic>> Authenticate([FromBody] LoginRequest request)
+    public async Task<ActionResult> AuthenticateAsync([FromBody] LoginRequest request)
     {
-        var user = _userService.Get(request.Name, request.Password);
+        var user = await _userService.GetAsync(request.Name, request.Password);
 
         if (user is null)
             return BadRequest("Invalid Name or Password");

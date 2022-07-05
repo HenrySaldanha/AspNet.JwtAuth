@@ -86,7 +86,7 @@ In my **Startup** class I added the following code snippets:
 
     public void ConfigureServices(IServiceCollection services)
         {
-    		...
+    	    ...
             var secret = Encoding.ASCII.GetBytes(Configuration.GetSection("TokenSecret")["Secret"]);
             services.AddAuthentication(x =>
             {
